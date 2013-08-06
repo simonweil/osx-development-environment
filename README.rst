@@ -202,9 +202,8 @@ Data Stores
 PostgreSQL
 ----------
 
-Install (from https://gist.github.com/fcurella/3188632)::
+If you need to develop with Django < 1.5, there is a bug which prevents using PostGIS 2.x so you will need to install compatible versions of PostgreSQL and PostGIS. These instructions were taken from https://gist.github.com/fcurella/3188632::
 
-    brew tap homebrew/versions
     brew install postgresql9
 
 Output::
@@ -274,11 +273,6 @@ Untap the keg::
 
     brew untap homebrew/versions
 
-Related spatial libraries::
-
-    pip install numpy
-    brew install gdal geos
-
 To create a database instance::
 
     initdb /usr/local/var/postgres9
@@ -289,6 +283,73 @@ You can now start the database server using::
 
 Or to set it to start automatically, see the output above after installing postgresql.
 
+If you do not need to support projects using Django < 1.5, you can use the latest PostgreSQL and PostGIS available through homebrew::
+
+    brew install postgres
+
+Output::
+
+    ==> Caveats
+    If builds of PostgreSQL 9 are failing and you have version 8.x installed,
+    you may need to remove the previous version first. See:
+      https://github.com/mxcl/homebrew/issues/issue/2510
+
+
+    If this is your first install, create a database with:
+      initdb /usr/local/var/postgres -E utf8
+
+
+    To migrate existing data from a previous major version (pre-9.2) of PostgreSQL, see:
+      http://www.postgresql.org/docs/9.2/static/upgrading.html
+
+
+    Some machines may require provisioning of shared memory:
+      http://www.postgresql.org/docs/9.2/static/kernel-resources.html#SYSVIPC
+    When installing the postgres gem, including ARCHFLAGS is recommended:
+      ARCHFLAGS="-arch x86_64" gem install pg
+
+    To install gems without sudo, see the Homebrew wiki.
+
+    To have launchd start postgresql at login:
+        ln -sfv /usr/local/opt/postgresql/*.plist ~/Library/LaunchAgents
+    Then to load postgresql now:
+        launchctl load ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist
+    Or, if you don't want/need launchctl, you can just run:
+        pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start
+
+PostGIS::
+
+    brew install postgis
+
+Output::
+
+    ==> Caveats
+    To create a spatially-enabled database, see the documentation:
+      http://postgis.refractions.net/documentation/manual-2.0/postgis_installation.html#create_new_db_extensions
+    and to upgrade your existing spatial databases, see here:
+      http://postgis.refractions.net/documentation/manual-2.0/postgis_installation.html#upgrading
+
+    PostGIS SQL scripts installed to:
+      /usr/local/share/postgis
+    PostGIS plugin libraries installed to:
+      /usr/local/opt/postgresql/lib
+    PostGIS extension modules installed to:
+      /usr/local/opt/postgresql/share/postgresql/extension
+
+To create a database instance::
+
+    initdb /usr/local/var/postgres -E utf8
+
+You can now start the database server using::
+
+    pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start
+
+Or to set it to start automatically, see the output above after installing postgresql.
+
+Related spatial libraries::
+
+    pip install numpy
+    brew install gdal geos
 
 Create the spatially enabled template::
 
@@ -299,7 +360,6 @@ Create the spatially enabled template::
 Create users::
 
     createuser -s web
-    createuser -s `whoami`
 
 To create a spatially enabled database::
 

@@ -436,7 +436,7 @@ Output::
 You have to create a data directory. By default it expects the data to be stored in ``/data/db``
 Otherwise, create a directory and pass the path when running the server::
 
-    mongod --dbpath=~/Projects/data/mongodb
+    mongod --dbpath=/Users/sallysue/Projects/data/mongodb
 
 Redis
 -----

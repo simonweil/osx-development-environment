@@ -110,6 +110,11 @@ iPython::
 
     pip install ipython
 
+iPython notebook (install zeromq first, see directions below)::
+
+    pip install pyzmq tornado Jinja2 
+
+
 Python 3::
 
     brew install python3
@@ -496,6 +501,21 @@ Output::
         launchctl load ~/Library/LaunchAgents/homebrew.mxcl.rabbitmq.plist
     Or, if you don't want/need launchctl, you can just run:
         rabbitmq-server
+
+ZeroMQ
+------
+
+Install::
+
+    brew install zeromq
+
+Output::
+
+    ==> Caveats
+    To install the zmq gem on 10.6 with the system Ruby on a 64-bit machine,
+    you may need to do:
+
+    ARCHFLAGS="-arch x86_64" gem install zmq -- --with-zmq-dir=/usr/local/opt/zeromq
 
 Celery
 ------

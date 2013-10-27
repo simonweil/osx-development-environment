@@ -246,9 +246,11 @@ Output::
 
     ==> Caveats
     To create a spatially-enabled database, see the documentation:
-      http://postgis.refractions.net/documentation/manual-2.0/postgis_installation.html#create_new_db_extensions
-    and to upgrade your existing spatial databases, see here:
-      http://postgis.refractions.net/documentation/manual-2.0/postgis_installation.html#upgrading
+      http://postgis.net/docs/manual-2.1/postgis_installation.html#create_new_db_extensions
+    If you are currently using PostGIS 2.0+, you can go the soft upgrade path:
+      ALTER EXTENSION postgis UPDATE TO "2.1.0";
+    Users of 1.5 and below will need to go the hard-upgrade path, see here:
+      http://postgis.net/docs/manual-2.1/postgis_installation.html#upgrading
 
     PostGIS SQL scripts installed to:
       /usr/local/share/postgis

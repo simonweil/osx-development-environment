@@ -2,7 +2,7 @@
 Configuring OSX for Development
 ===============================
 
-This doc assumes you are doing a clean install of `Homebrew <http://mxcl.github.io/homebrew/>`_ on a clean install of OSX 10.8.x (Mountain Lion) with Xcode 4.6.x. If you've got MacPorts installed or have otherwise already buggered up your system, you'll either need to live with your decision or do a clean install and start from scratch.
+This doc assumes you are doing a clean install of `Homebrew <http://mxcl.github.io/homebrew/>`_ on a clean install of OSX 10.9.x (Mavericks) with Xcode 5.x. If you've got MacPorts installed or have otherwise already buggered up your system, you'll either need to live with your decision or do a clean install and start from scratch.
 
 This guide is geared primarily towards Django and Rails development. If you use another web framework, you'll either need to live with your decision or start from scratch with Django or Rails ;)
 
@@ -11,9 +11,11 @@ Without further ado...
 Install Xcode
 -------------
 
-You can install Xcode directly from the App Store. Once this is complete, open Xcode, agree to the TOS and then select ``Xcode -> Preferences -> Downloads -> Components`` and make sure the Command Line Tools package is installed.
+You can install Xcode directly from the App Store but this is a large download. If you need the full Xcode anyway, go for it. Once this is complete, open Xcode, agree to the TOS and then select ``Xcode -> Preferences -> Downloads -> Components`` and make sure the Command Line Tools package is installed.
 
-According to the internets, you can download just the Command Line Tools if you don't have a need for the full Xcode (which is a large download). You can download these tools `here <https://developer.apple.com/downloads/index.action>`_. Agree to the TOS by typing "sudo xcodebuild -license".
+If you don't need the full Xcode, you can simply type ``git`` at the command line and it will pop up a download dialog to fetch the developer tools.
+
+According to the internets, you can also manually download just the Command Line Tools. You can download these tools `here <https://developer.apple.com/downloads/index.action>`_. Agree to the TOS by typing "sudo xcodebuild -license".
 
 Homebrew
 --------
@@ -21,7 +23,7 @@ Homebrew
 Install::
 
 
-    ruby -e "$(curl -fsSkL raw.github.com/mxcl/homebrew/go)"
+    ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go/install)"
     brew doctor
 
 Bash
@@ -112,8 +114,11 @@ iPython::
 
 iPython notebook (install zeromq first, see directions below)::
 
-    pip install pyzmq tornado Jinja2 
+    pip install pyzmq tornado Jinja2
 
+You'll also need numpy to build gdal::
+
+    pip install numpy
 
 Python 3::
 
@@ -236,7 +241,7 @@ Output::
     Then to load postgresql now:
         launchctl load ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist
     Or, if you don't want/need launchctl, you can just run:
-        pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start
+        postgres -D /usr/local/var/postgres
 
 PostGIS::
 
@@ -268,11 +273,6 @@ You can now start the database server using::
     pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start
 
 Or to set it to start automatically, see the output above after installing postgresql.
-
-Related spatial libraries::
-
-    pip install numpy
-    brew install gdal geos
 
 Create the spatially enabled template::
 

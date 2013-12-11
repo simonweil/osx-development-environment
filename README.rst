@@ -245,6 +245,7 @@ Output::
 
 PostGIS::
 
+    brew install libgeoip
     brew install postgis
 
 Output::

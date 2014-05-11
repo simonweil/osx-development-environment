@@ -2,20 +2,19 @@
 Configuring OSX for Development
 ===============================
 
-This doc assumes you are doing a clean install of `Homebrew <http://mxcl.github.io/homebrew/>`_ on a clean install of OSX 10.9.x (Mavericks) with Xcode 5.x. If you've got MacPorts installed or have otherwise already buggered up your system, you'll either need to live with your decision or do a clean install and start from scratch.
+This doc assumes you are doing a clean install of `Homebrew <http://mxcl.github.io/homebrew/>`_ on a clean install of OSX 10.9.x (Mavericks) with Xcode 5.x.
+If you've got MacPorts installed or have otherwise already buggered up your system, you'll either need to live with your decision or do a clean install and start from scratch.
 
 This guide is geared primarily towards Django and Rails development. If you use another web framework, you'll either need to live with your decision or start from scratch with Django or Rails ;)
 
 Without further ado...
 
-Install Xcode
--------------
+Install OSX Command Line Tools
+------------------------------
 
-You can install Xcode directly from the App Store but this is a large download. If you need the full Xcode anyway, go for it. Once this is complete, open Xcode, agree to the TOS and then select ``Xcode -> Preferences -> Downloads -> Components`` and make sure the Command Line Tools package is installed.
-
-If you don't need the full Xcode, you can simply type ``git`` at the command line and it will pop up a download dialog to fetch the developer tools.
-
-According to the internets, you can also manually download just the Command Line Tools. You can download these tools `here <https://developer.apple.com/downloads/index.action>`_. Agree to the TOS by typing "sudo xcodebuild -license".
+These tools used to be included in XCode but no more. 
+Now you must log into your Apple developer account (which means you'll need said account) and `download <https://developer.apple.com/downloads/index.action>`_.
+Be sure to select the correct download for your version of OSX.
 
 Homebrew
 --------

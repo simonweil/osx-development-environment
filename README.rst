@@ -150,8 +150,7 @@ Output::
 Django bash completion::
 
     mkdir ~/.django
-
-    wget --no-check-certificate https://raw.github.com/django/django/c09f6ff0a58d016eeb7536f1df1fa956f94f671c/extras/django_bash_completion -O ~/.django/django_bash_completion
+    wget https://raw.githubusercontent.com/django/django/master/extras/django_bash_completion -O ~/.django/django_bash_completion
 
 Add to ``~/.bash_profile``::
 

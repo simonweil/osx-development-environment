@@ -501,31 +501,19 @@ OSXFUSE
 If you use Parallels or another VM to run a project, you can mount the project folder from the VM to your OSX file system.
 This allows you to use your preferred OSX text editor and usual Finder operations.
 
-Install::
-
-    brew install sshfs
-
-Output (do follow these instructions)::
-
-    If upgrading from a previous version of osxfuse, the previous kernel extension
-    will need to be unloaded before installing the new version. First, check that
-    no FUSE-based file systems are running:
-
-      mount -t osxfusefs
-
-    Unmount all FUSE file systems and then unload the kernel extension:
-
-      sudo kextunload -b com.github.osxfuse.filesystems.osxfusefs
-
-    The new osxfuse file system bundle needs to be installed by the root user:
-
-      sudo /bin/cp -RfX /usr/local/Cellar/osxfuse/2.6.2/Library/Filesystems/osxfusefs.fs /Library/Filesystems
-      sudo chmod +s /Library/Filesystems/osxfusefs.fs/Support/load_osxfusefs
+Download the latest release from the `official site <http://osxfuse.github.io/>`_.
+Do not install using homebrew on Yosemite or later as Apple requires kernel extensions to be signed.
+Homebrew builds from source and thus there is no signature.
+See `this issue <https://github.com/osxfuse/osxfuse/issues/150>`_ for more information.
 
 Mount the VM folder::
 
     mkdir ~/Projects/myproject
     sshfs web@10.211.55.1:/home/web/myproject /Users/myusername/Projects/myproject -oauto_cache,reconnect,defer_permissions,negative_vncache,volname=somename
+
+Unmount when you are finished::
+
+    umount ~/Projects/myproject
 
 Homebrew maintenance
 --------------------

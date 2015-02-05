@@ -326,14 +326,16 @@ This is a drop-in replacement for MySQL by the original authors (forked after Or
 Output::
 
     ==> Caveats
-    Set up databases with:
-        unset TMPDIR
-        mysql_install_db --user=`whoami` --basedir="$(brew --prefix mariadb)" --datadir=/usr/local/var/mysql --tmpdir=/tmp
+    A "/etc/my.cnf" from another install may interfere with a Homebrew-built
+    server starting up correctly.
 
-    To have launchd start mariadb at login:
-        ln -sfv /usr/local/opt/mariadb/*.plist ~/Library/LaunchAgents
-    Then to load mariadb now:
-        launchctl load ~/Library/LaunchAgents/homebrew.mxcl.mariadb.plist
+    To connect:
+        mysql -uroot
+
+    To have launchd start mysql at login:
+        ln -sfv /usr/local/opt/mysql/*.plist ~/Library/LaunchAgents
+    Then to load mysql now:
+        launchctl load ~/Library/LaunchAgents/homebrew.mxcl.mysql.plist
     Or, if you don't want/need launchctl, you can just run:
         mysql.server start
 

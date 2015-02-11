@@ -22,7 +22,7 @@ Homebrew
 Install::
 
 
-    ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go/install)"
+    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
     brew doctor
 
 Bash
@@ -99,13 +99,38 @@ Python
 
 Homebrew installs pip and distribute by default when installing Python::
 
-    brew install python --framework
+    brew install pyenv
 
-The ``--framework`` option allegedly installs Python in a way so that software depending on the OS X Python will still install correctly. I don't know, I read it on a blog somewhere.
+Output::
 
-virtualenv::
+    ==> Caveats
+    To enable shims and autocompletion add to your profile:
+      if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
 
-    pip install virtualenv
+    To use Homebrew's directories rather than ~/.pyenv add to your profile:
+      export PYENV_ROOT=/usr/local/opt/pyenv
+
+Install::
+
+    brew install pyenv-virtualenv
+
+Output::
+
+    ==> Caveats
+    To enable auto-activation add to your profile:
+      if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
+
+Python 2::
+
+    pyenv install 2.7.9
+
+Python 3::
+
+    pyenv install 3.4.2
+
+To create a virtualenv::
+
+    pyenv virtualenv 3.4.2 myenv
 
 iPython::
 
@@ -119,40 +144,12 @@ You'll also need numpy to build gdal::
 
     pip install numpy
 
-Python 3::
-
-    brew install python3
-
-Output::
-
-    ==> Caveats
-    Homebrew's Python3 framework
-      /usr/local/Cellar/python3/3.3.1/Frameworks/Python.framework
-
-    Distribute and Pip have been installed. To update them
-      pip3 install --upgrade distribute
-      pip3 install --upgrade pip
-
-    To symlink "Idle 3" and the "Python Launcher 3" to ~/Applications
-      `brew linkapps`
-
-    You can install Python packages with
-      `pip3 install <your_favorite_package>`
-
-    They will install into the site-package directory
-      /usr/local/lib/python3.3/site-packages
-    Executable python scripts will be put in:
-      /usr/local/share/python3
-    so you may want to put "/usr/local/share/python3" in your PATH, too.
-
-    See: https://github.com/mxcl/homebrew/wiki/Homebrew-and-Python
-
 Django bash completion::
 
     mkdir ~/.django
     wget https://raw.githubusercontent.com/django/django/master/extras/django_bash_completion -O ~/.django/django_bash_completion
 
-Add to ``~/.bash_profile``::
+Add to ``~/.bashrc``::
 
     if [ -f ~/.django/django_bash_completion ]; then
         . ~/.django/django_bash_completion
@@ -191,7 +188,7 @@ Output::
     The OS X keychain credential helper has been installed to:
       /usr/local/bin/git-credential-osxkeychain
 
-    The 'contrib' directory has been installed to:
+    The "contrib" directory has been installed to:
       /usr/local/share/git-core/contrib
 
     Bash completion has been installed to:
@@ -210,29 +207,19 @@ Data Stores
 PostgreSQL
 ----------
 
-If you need to develop with Django < 1.5, see separate guide old-postgis-postgresql.rst.
-Otherwise::
+Install::
 
     brew install postgres
 
 Output::
 
     ==> Caveats
-    initdb /usr/local/var/postgres -E utf8    # create a database
-    postgres -D /usr/local/var/postgres       # serve that database
-    PGDATA=/usr/local/var/postgres postgres   # …alternatively
-
     If builds of PostgreSQL 9 are failing and you have version 8.x installed,
     you may need to remove the previous version first. See:
-      https://github.com/mxcl/homebrew/issues/issue/2510
+      https://github.com/Homebrew/homebrew/issues/2510
 
-    To migrate existing data from a previous major version (pre-9.3) of PostgreSQL, see:
-      http://www.postgresql.org/docs/9.3/static/upgrading.html
-
-    When installing the postgres gem, including ARCHFLAGS is recommended:
-      ARCHFLAGS="-arch x86_64" gem install pg
-
-    To install gems without sudo, see the Homebrew wiki.
+    To migrate existing data from a previous major version (pre-9.4) of PostgreSQL, see:
+      http://www.postgresql.org/docs/9.4/static/upgrading.html
 
     To have launchd start postgresql at login:
         ln -sfv /usr/local/opt/postgresql/*.plist ~/Library/LaunchAgents
@@ -252,7 +239,7 @@ Output::
     To create a spatially-enabled database, see the documentation:
       http://postgis.net/docs/manual-2.1/postgis_installation.html#create_new_db_extensions
     If you are currently using PostGIS 2.0+, you can go the soft upgrade path:
-      ALTER EXTENSION postgis UPDATE TO "2.1.0";
+      ALTER EXTENSION postgis UPDATE TO "2.1.5";
     Users of 1.5 and below will need to go the hard-upgrade path, see here:
       http://postgis.net/docs/manual-2.1/postgis_installation.html#upgrading
 
@@ -301,14 +288,14 @@ Output::
     server starting up correctly.
 
     To connect:
-      mysql -uroot
+        mysql -uroot
 
     To have launchd start mysql at login:
-      ln -sfv /usr/local/opt/mysql/*.plist ~/Library/LaunchAgents
+        ln -sfv /usr/local/opt/mysql/*.plist ~/Library/LaunchAgents
     Then to load mysql now:
-      launchctl load ~/Library/LaunchAgents/homebrew.mxcl.mysql.plist
+        launchctl load ~/Library/LaunchAgents/homebrew.mxcl.mysql.plist
     Or, if you don't want/need launchctl, you can just run:
-      mysql.server start
+        mysql.server start
 
 Create a database and set permissions for development::
 

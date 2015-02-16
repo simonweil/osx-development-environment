@@ -45,26 +45,27 @@ Bash completion
 
 Install::
 
-    brew install bash-completion
+    brew install bash-completion2
 
 Output::
 
     ==> Caveats
-    Add the following lines to your ~/.bash_profile:
-      if [ -f $(brew --prefix)/etc/bash_completion ]; then
-        . $(brew --prefix)/etc/bash_completion
+    Add the following to your ~/.bash_profile:
+      if [ -f $(brew --prefix)/share/bash-completion/bash_completion ]; then
+        . $(brew --prefix)/share/bash-completion/bash_completion
       fi
-
-    Homebrew's own bash completion script has been installed to
-      /usr/local/etc/bash_completion.d
-
-    Bash completion has been installed to:
-      /usr/local/etc/bash_completion.d
+    
+      Homebrew's own bash completion script has been linked into
+        /usr/local/share/bash-completion/completions
+      bash-completion will automatically source it when you invoke `brew`.
+    
+      Any completion scripts in /usr/local/etc/bash_completion.d
+      will continue to be sourced as well.
 
 Add to your ``~/.bash_profile``::
 
-    if [ -f $(brew --prefix)/etc/bash_completion ]; then
-        . $(brew --prefix)/etc/bash_completion
+    if [ -f $(brew --prefix)/share/bash-completion/bash_completion ]; then
+        . $(brew --prefix)/share/bash-completion/bash_completion
     fi
 
 Now activate it::
@@ -146,14 +147,7 @@ You'll also need numpy to build gdal::
 
 Django bash completion::
 
-    mkdir ~/.django
-    wget https://raw.githubusercontent.com/django/django/master/extras/django_bash_completion -O ~/.django/django_bash_completion
-
-Add to ``~/.bashrc``::
-
-    if [ -f ~/.django/django_bash_completion ]; then
-        . ~/.django/django_bash_completion
-    fi
+    brew install homebrew/completions/django-completion
 
 Ruby & Rails
 ------------
